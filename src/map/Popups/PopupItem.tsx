@@ -33,29 +33,23 @@ const PopupItem = ({ place, handleBackToCluster }: PopupItemProps) => {
       anchor="top"
       offset={[0, -AppConfig.ui.markerIconSize] as never}
     >
-      <div
-        className="bg-mapBg text-dark shadow-md rounded-md p-2 relative"
-        style={{ marginTop: -markerSize / 2 }}
-      >
+      <div className="bg-mapBg text-dark shadow-md rounded-md p-2 -mt-3 relative">
         <Button
-          className="absolute right-0 top-0 text-dark inline-block"
+          className="absolute right-0 top-2 text-dark inline-block"
           onClick={() => setMarkerPopup(undefined)}
           small
         >
-          <X size={markerSize} />
+          <X size={AppConfig.ui.mapIconSizeSmall} />
         </Button>
-        <div
-          className="flex justify-center absolute w-full left-0 top-0"
-          style={{ marginTop: markerSize / 2 + 7 }}
-        >
-          <IconCircle path={currentCat.iconPathSVG} invert />
+        <div className="flex justify-center absolute w-full left-0 top-0 mt-4">
+          <IconCircle path={`/${currentCat.iconMedium}`} size={markerSize} invert />
         </div>
         <div className="flex flex-row justify-center pt-3">
           <div
             className="flex flex-col justify-center p-3 text-center w-full"
-            style={{ marginTop: AppConfig.ui.markerIconSize * 2 }}
+            style={{ marginTop: markerSize }}
           >
-            <h3 className="text-lg font-bold leading-none m-0 mt-2">{place.headline}</h3>
+            <h3 className="text-lg font-bold leading-none m-0">{place.headline}</h3>
             <p className="text-darkLight m-0  mt-2">Population: {place.population}</p>
             <div className="flex flex-row justify-between gap-2 mt-6">
               <Button
