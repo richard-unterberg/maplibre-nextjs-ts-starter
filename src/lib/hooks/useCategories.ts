@@ -12,9 +12,7 @@ const useCategories = () => {
     [categories],
   )
 
-  const sanitizedCategories = categories.filter(category => !category.hideInNav)
-
-  return { categories, sanitizedCategories, getCategoryById }
+  return { categories, getCategoryById }
 }
 
 export default useCategories

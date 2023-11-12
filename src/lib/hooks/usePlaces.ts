@@ -146,7 +146,6 @@ const usePlaces = () => {
     currentBounds,
     placesGroupedByCategory,
     getCatPlaces,
-    getPlacesBounds,
     getPlaceById,
   } as const
 }
