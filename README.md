@@ -2,7 +2,7 @@
 
 Save some minutes by adapting this modern next.js typescript project to your needs. It comes with a custom maplibre-gl-js layer or jsx rendering output in your common next.js stack. ✌️
 
-The JSX rendering output is a bit slower than the layer rendering output. But it is more flexible and you can use the full power of react. The layer rendering output is unbelivabely but you can only use the limited way of displaying layers in maplibre-gl-js, which can't really be overlapped.
+The JSX rendering output is a bit slower than the layer rendering output. But it is more flexible and you can use the full power of react. The layer rendering output is unbelievably fast but you can only use the limited way of displaying layers in maplibre-gl-js, which can't really be overlapped.
 
 You will need a maptiler account to use the maplibre-gl-js library. You can get a free account [here](https://www.maptiler.com/). A simple mapbox-to-maplibre-gl resolver is already in place in ``next.config.js.``
 
