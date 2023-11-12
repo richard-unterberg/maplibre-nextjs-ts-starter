@@ -1,0 +1,10 @@
+node_modules
+dist
+
+next.config.js
+tailwind.config.js
+postcss.config.js
+prettier.config.js
+next-i18next.config.js
+
+config-overrides.js

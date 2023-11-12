@@ -1,0 +1,13 @@
+#!/bin/sh
+
+branch="$(git rev-parse --abbrev-ref HEAD)"
+
+if [ "$branch" = "master" ]; then
+  echo "You can't commit directly to the $branch branch. Use git flow to create release and finish it after reviewing"
+  exit 1
+fi
+
+. "$(dirname "$0")/_/husky.sh"
+
+# for potential testing
+npx lint-staged
