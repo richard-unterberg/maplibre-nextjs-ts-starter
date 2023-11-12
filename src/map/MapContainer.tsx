@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo } from 'react'
 import type { ErrorEvent, ViewState, ViewStateChangeEvent } from 'react-map-gl'
 import Map from 'react-map-gl'
 
-import SettingsBar from '@/components/SettingsBar'
+import SettingsBox from '@/components/SettingsBox'
 import Sidebar from '@/components/Sidebar'
 import TopBar from '@/components/TopBar'
 import useDetectScreen from '@/hooks/useDetectScreen'
@@ -97,7 +97,7 @@ const MapInner = () => {
           <Popups />
           {markerJSXRendering ? <Markers /> : <Layers />}
           <MapControls />
-          <SettingsBar />
+          <SettingsBox />
           <Sidebar />
           <TopBar />
         </Map>

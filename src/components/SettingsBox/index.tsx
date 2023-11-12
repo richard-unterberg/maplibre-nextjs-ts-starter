@@ -12,11 +12,11 @@ const StyledSettingsBox = tw.div`
   absolute
   left-5
   top-5
-  w-96
+  w-80
   p-3
 `
 
-const SettingsBar = () => {
+const SettingsBox = () => {
   const selectedCategory = useMapStore(state => state.selectedCategory)
   const clusterRadius = useMapStore(state => state.clusterRadius)
   const markersCount = useSettingsStore(state => state.markersCount)
@@ -138,4 +138,4 @@ const SettingsBar = () => {
   )
 }
 
-export default SettingsBar
+export default SettingsBox
