@@ -4,9 +4,6 @@ import { useCallback, useEffect, useMemo } from 'react'
 import type { ErrorEvent, ViewState, ViewStateChangeEvent } from 'react-map-gl'
 import Map from 'react-map-gl'
 
-import SettingsBox from '@/components/SettingsBox'
-import Sidebar from '@/components/Sidebar'
-import TopBar from '@/components/TopBar'
 import useDetectScreen from '@/hooks/useDetectScreen'
 import usePlaces from '@/hooks/usePlaces'
 import { AppConfig } from '@/lib/AppConfig'
@@ -27,6 +24,9 @@ const onMapError = (evt: ErrorEvent) => {
 const Popups = dynamic(() => import('@/src/map/Popups'))
 const Markers = dynamic(() => import('@/src/map/Markers'))
 const Layers = dynamic(() => import('@/src/map/Layers'))
+const Sidebar = dynamic(() => import('@/components/Sidebar'))
+const SettingsBox = dynamic(() => import('@/components/SettingsBox'))
+const TopBar = dynamic(() => import('@/components/TopBar'))
 
 const MapInner = () => {
   const setViewState = useMapStore(state => state.setViewState)
@@ -81,7 +81,7 @@ const MapInner = () => {
     <div className="absolute overflow-hidden inset-0 bg-mapBg" ref={viewportRef}>
       {allPlacesBounds && (
         <Map
-          {...throttledSetViewState}
+          // {...throttledSetViewState}
           initialViewState={allPlacesBounds}
           ref={e => setMap && setMap(e || undefined)}
           onError={e => onMapError(e)}
@@ -90,9 +90,8 @@ const MapInner = () => {
           style={{ width: viewportWidth, height: viewportHeight }}
           mapStyle={`https://api.maptiler.com/maps/basic-v2/style.json?key=${AppConfig.map.tileKey}`}
           reuseMaps
+          // disable map rotation since it's not correctly calculated into the bounds atm :')
           dragRotate={false}
-          touchPitch={false}
-          boxZoom={false}
         >
           <Popups />
           {markerJSXRendering ? <Markers /> : <Layers />}
