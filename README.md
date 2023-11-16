@@ -1,4 +1,4 @@
-# maplibre-nextjs-ts-starter
+# advanced next.js starter kit for maplibre GL usage with react-typescript
 
 Save some minutes by adapting this modern next.js typescript project to your needs. It comes with a custom maplibre-gl-js layer or jsx rendering output in your common next.js stack. ✌️
 
