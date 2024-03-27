@@ -34,6 +34,9 @@ const PopupItem = ({ place, handleBackToCluster }: PopupItemProps) => {
       offset={[0, -AppConfig.ui.markerIconSize] as never}
     >
       <div className="bg-mapBg text-dark shadow-md rounded-md p-2 -mt-3 relative">
+        <div className="flex justify-center absolute w-full left-0 top-0 mt-4">
+          <IconCircle path={`/${currentCat.iconMedium}`} size={markerSize} invert />
+        </div>
         <Button
           className="absolute right-0 top-2 text-dark inline-block"
           onClick={() => setMarkerPopup(undefined)}
@@ -41,9 +44,6 @@ const PopupItem = ({ place, handleBackToCluster }: PopupItemProps) => {
         >
           <X size={AppConfig.ui.mapIconSizeSmall} />
         </Button>
-        <div className="flex justify-center absolute w-full left-0 top-0 mt-4">
-          <IconCircle path={`/${currentCat.iconMedium}`} size={markerSize} invert />
-        </div>
         <div className="flex flex-row justify-center pt-3">
           <div
             className="flex flex-col justify-center p-3 text-center w-full"
