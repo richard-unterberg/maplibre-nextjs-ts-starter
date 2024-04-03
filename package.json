@@ -10,7 +10,7 @@
   "bugs": {
     "url": "https://github.com/richard-unterberg/maplibre-nextjs-ts-starter/issues"
   },
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
