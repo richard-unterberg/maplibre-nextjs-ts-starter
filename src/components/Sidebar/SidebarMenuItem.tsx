@@ -18,7 +18,7 @@ const SidebarMenuItem = ({ handleClick, selected, category }: SidebarMenuItemPro
   return (
     <Button
       key={category.id}
-      className={`relative p-3 gap-3 w-full flex ${
+      className={`relative p-1 gap-2 md:p-2 w-full flex ${
         selectedCategory ? 'text-white' : ''
       } justify-start`}
       noGutter
@@ -32,7 +32,7 @@ const SidebarMenuItem = ({ handleClick, selected, category }: SidebarMenuItemPro
         bgColor={selectedCategory?.id === category.id ? theme.colors.white : category.color}
         invert={selectedCategory?.id === category.id}
       />
-      <div className={`text-xl ${selectedCategory?.id === category.id ? 'underline' : ''}`}>
+      <div className={`md:text-lg ${selectedCategory?.id === category.id ? 'underline' : ''}`}>
         {category.name}
       </div>
     </Button>

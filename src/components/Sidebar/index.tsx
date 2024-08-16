@@ -1,4 +1,3 @@
-import { ChevronDown } from 'lucide-react'
 import { useCallback } from 'react'
 import tw from 'tailwind-styled-components'
 
@@ -13,18 +12,8 @@ const StyledSidebar = tw.div`
   absolute
   left-5
   bottom-5
-  w-56
+  md:w-56
   z-30
-`
-
-const StyledSidebarInner = tw.div`
-  absolute
-  bottom-full
-  left-0
-  text-2xl
-  text-dark
-  w-full
-  text-center
 `
 
 const Sidebar = () => {
@@ -56,10 +45,6 @@ const Sidebar = () => {
 
   return isMapGlLoaded ? (
     <StyledSidebar>
-      <StyledSidebarInner>
-        <h3>Select a category</h3>
-        <ChevronDown className="mx-auto" size={100} />
-      </StyledSidebarInner>
       <CategoryColorBg outerClassName="p-2">
         <div className="w-full z-10 relative">
           {Object.values(categories).map(category => (
