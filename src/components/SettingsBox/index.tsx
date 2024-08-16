@@ -1,4 +1,5 @@
-import { ChangeEvent, useCallback, useEffect, useMemo } from 'react'
+import { Settings } from 'lucide-react'
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react'
 import tw from 'tailwind-styled-components'
 
 import CategoryColorBg from '@/components/CategoryColorBg'
@@ -8,10 +9,19 @@ import useMapActions from '@/map/useMapActions'
 import useMapStore from '@/zustand/useMapStore'
 import useSettingsStore from '@/zustand/useSettingsStore'
 
-const StyledSettingsBox = tw.div`
+const StyledSettingsButton = tw.button`
   absolute
   left-5
   top-5
+  bg-white
+  p-3
+  z-10
+`
+
+const StyledSettingsBox = tw.div`
+  absolute
+  left-5
+  top-16
   w-80
   p-3
 `
@@ -26,6 +36,8 @@ const SettingsBox = () => {
   const markerJSXRendering = useSettingsStore(state => state.markerJSXRendering)
   const setMarkerJSXRendering = useSettingsStore(state => state.setMarkerJSXRendering)
   const setMarkersCount = useSettingsStore(state => state.setMarkersCount)
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false)
+  const viewportWidth = useMapStore(state => state.viewportWidth)
 
   const { rawPlaces, getCatPlaces, allPlacesBounds } = usePlaces()
   const { handleMapMove } = useMapActions()
@@ -55,86 +67,102 @@ const SettingsBox = () => {
   )
 
   useEffect(() => {
+    if (viewportWidth && viewportWidth > 1024) {
+      setIsSettingsOpen(true)
+    }
+  }, [viewportWidth])
+
+  useEffect(() => {
     if (markersCount > currentMaxCounting) {
       setMarkersCount(currentMaxCounting)
     }
   }, [currentMaxCounting, markersCount, setMarkersCount])
 
   return (
-    <StyledSettingsBox style={{ marginTop: AppConfig.ui.barHeight }}>
-      <CategoryColorBg className="z-10" />
-      <div className={`z-20 relative ${selectedCategory ? 'text-white' : 'text-dark'}`}>
-        <p className="text-lg">
-          <span className="font-bold">Marker Data: </span>
-          {markersCount} / {currentMaxCounting} items
-        </p>
-        <input
-          type="range"
-          min={5}
-          onChange={e => setMarkersCount(parseFloat(e.target.value))}
-          max={currentMaxCounting}
-          value={markersCount}
-          step={1}
-          className="w-full"
-        />
-        <p className="text-lg">
-          <span className="font-bold">Marker Size: </span>
-          {`${markerSize}px`}
-        </p>
-        <input
-          type="range"
-          min={AppConfig.ui.mapIconSizeSmall}
-          onChange={e => {
-            // todo: outsource this to own handler
-            const newMarkerSize = parseFloat(e.target.value)
-            setMarkerSize(newMarkerSize)
+    <>
+      <StyledSettingsButton
+        onClick={() => setIsSettingsOpen(!isSettingsOpen)}
+        style={{ marginTop: AppConfig.ui.barHeight }}
+      >
+        <Settings />
+      </StyledSettingsButton>
+      {isSettingsOpen && (
+        <StyledSettingsBox style={{ marginTop: AppConfig.ui.barHeight }}>
+          <CategoryColorBg className="z-10" />
+          <div className={`z-20 relative ${selectedCategory ? 'text-white' : 'text-dark'}`}>
+            <p className="text-lg">
+              <span className="font-bold">Marker Data: </span>
+              {markersCount} / {currentMaxCounting} items
+            </p>
+            <input
+              type="range"
+              min={5}
+              onChange={e => setMarkersCount(parseFloat(e.target.value))}
+              max={currentMaxCounting}
+              value={markersCount}
+              step={1}
+              className="w-full"
+            />
+            <p className="text-lg">
+              <span className="font-bold">Marker Size: </span>
+              {`${markerSize}px`}
+            </p>
+            <input
+              type="range"
+              min={AppConfig.ui.mapIconSizeSmall}
+              onChange={e => {
+                // todo: outsource this to own handler
+                const newMarkerSize = parseFloat(e.target.value)
+                setMarkerSize(newMarkerSize)
 
-            // Set clusterRadius to the new marker size only if it's smaller than the current clusterRadius
-            if (newMarkerSize > clusterRadius) {
-              setClusterRadius(newMarkerSize)
-            }
-          }}
-          max={AppConfig.ui.mapIconSizeBig}
-          value={markerSize}
-          step={1}
-          className="w-full"
-        />
-        <p className="text-lg">
-          <span className="font-bold">Cluster Radius: </span>
-          {`${clusterRadius}px`}
-        </p>
-        <input
-          type="range"
-          min={markerSize}
-          onChange={e => {
-            setClusterRadius(parseFloat(e.target.value))
-          }}
-          max={200}
-          value={clusterRadius}
-          step={1}
-          className="w-full"
-        />
-        <p className="text-lg">
-          <span className="font-bold">
-            Marker Renderering: {markerJSXRendering ? 'JSX ⚠️' : 'Web GL'}
-          </span>
-        </p>
-        <label className="flex gap-3 items-start" htmlFor="markerJSXRendering">
-          <input
-            className="mt-1"
-            id="markerJSXRendering"
-            type="checkbox"
-            checked={markerJSXRendering}
-            onChange={e => handleLegacyJSXRendering(e)}
-          />
-          <span>
-            <b>Enable.</b> - Experimental - If enabled, markers and clusters are rendered in react.
-            Performance may vary depending on your device. If you experience performance issues,
-            higher cluster radius and lower marker count.
-          </span>
-        </label>
-      </div>
-    </StyledSettingsBox>
+                // Set clusterRadius to the new marker size only if it's smaller than the current clusterRadius
+                if (newMarkerSize > clusterRadius) {
+                  setClusterRadius(newMarkerSize)
+                }
+              }}
+              max={AppConfig.ui.mapIconSizeBig}
+              value={markerSize}
+              step={1}
+              className="w-full"
+            />
+            <p className="text-lg">
+              <span className="font-bold">Cluster Radius: </span>
+              {`${clusterRadius}px`}
+            </p>
+            <input
+              type="range"
+              min={markerSize}
+              onChange={e => {
+                setClusterRadius(parseFloat(e.target.value))
+              }}
+              max={200}
+              value={clusterRadius}
+              step={1}
+              className="w-full"
+            />
+            <p className="text-lg">
+              <span className="font-bold">
+                Marker Renderering: {markerJSXRendering ? 'JSX ⚠️' : 'Web GL'}
+              </span>
+            </p>
+            <label className="flex gap-3 items-start" htmlFor="markerJSXRendering">
+              <input
+                className="mt-1"
+                id="markerJSXRendering"
+                type="checkbox"
+                checked={markerJSXRendering}
+                onChange={e => handleLegacyJSXRendering(e)}
+              />
+              <span>
+                <b>Enable.</b> - Experimental - If enabled, markers and clusters are rendered in
+                react. Performance may vary depending on your device. If you experience performance
+                issues, higher cluster radius and lower marker count.
+              </span>
+            </label>
+          </div>
+        </StyledSettingsBox>
+      )}
+    </>
   )
 }
 
