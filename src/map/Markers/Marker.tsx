@@ -1,11 +1,11 @@
 import { memo, useCallback } from 'react'
 import { Marker as ReactMapGLMarker } from 'react-map-gl'
-import tw from 'tailwind-styled-components'
+import { rsc } from 'react-styled-classnames'
 
 import IconCircle from '@/components/IconCircle'
 import { Category, Place } from '@/lib/types/entityTypes'
 
-const StyledBadge = tw.span`
+const StyledBadge = rsc.span`
   flex
   z-20
   flex-col

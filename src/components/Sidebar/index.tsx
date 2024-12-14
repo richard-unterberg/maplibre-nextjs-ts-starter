@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import tw from 'tailwind-styled-components'
+import { rsc } from 'react-styled-classnames'
 
 import CategoryColorBg from '@/components/CategoryColorBg'
 import SidebarMenuItem from '@/components/Sidebar/SidebarMenuItem'
@@ -8,7 +8,7 @@ import { CATEGORY_ID } from '@/lib/constants'
 import useMapContext from '@/src/map/useMapContext'
 import useMapStore from '@/zustand/useMapStore'
 
-const StyledSidebar = tw.div`
+const StyledSidebar = rsc.div`
   absolute
   left-5
   bottom-5

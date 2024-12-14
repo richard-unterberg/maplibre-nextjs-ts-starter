@@ -18,14 +18,13 @@ more infos very soon...
 - State Management: [zustand](https://github.com/pmndrs/zustand)
 - UI:
   - [tailwind](https://github.com/tailwindlabs/tailwindcss)
-    - [styled components](https://github.com/styled-components/styled-components)
-    - [tailwind styled components](https://github.com/MathiasGilson/Tailwind-Styled-Component)
   - [Lucide Icons](https://github.com/lucide-icons/lucide)
   - [react-resize-detector](https://github.com/maslianok/react-resize-detector) (almost deprecated)
 - Map:
   - [Maplibre GL JS](https://github.com/maplibre/maplibre-gl-js)
   - [react-map-gl](https://github.com/visgl/react-map-gl)
 - Development
+  - [react-styled-classnames](https://github.com/richard-unterberg/react-styled-classnames)
   - [typeScript](https://github.com/microsoft/TypeScript)
   - [eslint](https://github.com/eslint/eslint)
   - [prettier](https://github.com/prettier/prettier)

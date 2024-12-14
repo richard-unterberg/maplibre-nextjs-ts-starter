@@ -1,19 +1,13 @@
 import { useEffect } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
-import { shallow } from 'zustand/shallow'
 
 import useMapStore from '@/zustand/useMapStore'
 
 const useDetectScreen = () => {
-  const [setViewportWidth, setViewportHeight, viewportWidth, viewportHeight] = useMapStore(
-    state => [
-      state.setViewportWidth,
-      state.setViewportHeight,
-      state.viewportWidth,
-      state.viewportHeight,
-    ],
-    shallow,
-  )
+  const setViewportWidth = useMapStore(state => state.setViewportWidth)
+  const setViewportHeight = useMapStore(state => state.setViewportHeight)
+  const viewportWidth = useMapStore(state => state.viewportWidth)
+  const viewportHeight = useMapStore(state => state.viewportHeight)
 
   const {
     width,

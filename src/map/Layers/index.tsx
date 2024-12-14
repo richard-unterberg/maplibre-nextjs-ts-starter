@@ -21,7 +21,8 @@ const Layers = () => {
   const { placesGroupedByCategory, markerCategoryIDs, getPlaceById } = usePlaces()
   const { getCategoryById } = useCategories()
   const markerSize = useSettingsStore(state => state.markerSize)
-  const { clusterRadius, setMarkerPopup } = useMapStore()
+  const clusterRadius = useMapStore(state => state.clusterRadius)
+  const setMarkerPopup = useMapStore(state => state.setMarkerPopup)
   const { map } = useMapContext()
   const { handleMapMove } = useMapActions()
 

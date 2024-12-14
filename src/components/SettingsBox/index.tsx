@@ -1,6 +1,6 @@
 import { Settings } from 'lucide-react'
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react'
-import tw from 'tailwind-styled-components'
+import { rsc } from 'react-styled-classnames'
 
 import CategoryColorBg from '@/components/CategoryColorBg'
 import usePlaces from '@/hooks/usePlaces'
@@ -9,7 +9,7 @@ import useMapActions from '@/map/useMapActions'
 import useMapStore from '@/zustand/useMapStore'
 import useSettingsStore from '@/zustand/useSettingsStore'
 
-const StyledSettingsButton = tw.button`
+const StyledSettingsButton = rsc.button`
   absolute
   left-5
   top-5
@@ -18,7 +18,7 @@ const StyledSettingsButton = tw.button`
   z-10
 `
 
-const StyledSettingsBox = tw.div`
+const StyledSettingsBox = rsc.div`
   absolute
   left-5
   top-16

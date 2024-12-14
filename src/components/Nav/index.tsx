@@ -1,4 +1,4 @@
-import tw from 'tailwind-styled-components'
+import { rsc } from 'react-styled-classnames'
 
 import Icon from '@/components/Icon'
 import { AppConfig, NavVariant } from '@/lib/AppConfig'
@@ -12,7 +12,7 @@ interface StyledListProps {
   $isSelectedCategory?: boolean
 }
 
-const StyledList = tw.ul<StyledListProps>`
+const StyledList = rsc.ul<StyledListProps>`
   flex
   h-full
   ${list => {
