@@ -1,5 +1,4 @@
-import { useEffect } from 'react'
-import { useResizeDetector } from 'react-resize-detector'
+import { useEffect, useRef } from 'react'
 
 import useMapStore from '@/zustand/useMapStore'
 
@@ -8,27 +7,32 @@ const useDetectScreen = () => {
   const setViewportHeight = useMapStore(state => state.setViewportHeight)
   const viewportWidth = useMapStore(state => state.viewportWidth)
   const viewportHeight = useMapStore(state => state.viewportHeight)
-
-  const {
-    width,
-    height,
-    ref: viewportRef,
-  } = useResizeDetector({
-    refreshMode: 'debounce',
-    refreshRate: 400,
-  })
+  const viewportRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    if (width && viewportRef.current) {
-      setViewportWidth(width)
-    }
-  }, [width, viewportRef, setViewportWidth])
+    if (!viewportRef.current) return
 
-  useEffect(() => {
-    if (height && viewportRef.current) {
-      setViewportHeight(height)
+    let timeoutId: NodeJS.Timeout
+
+    const observer = new ResizeObserver((entries) => {
+      // Debounce the resize event
+      clearTimeout(timeoutId)
+      timeoutId = setTimeout(() => {
+        for (let entry of entries) {
+          const { width, height } = entry.contentRect
+          if (width) setViewportWidth(width)
+          if (height) setViewportHeight(height)
+        }
+      }, 400)
+    })
+
+    observer.observe(viewportRef.current)
+
+    return () => {
+      observer.disconnect()
+      clearTimeout(timeoutId)
     }
-  }, [height, setViewportHeight, viewportRef])
+  }, [setViewportWidth, setViewportHeight])
 
   return { viewportRef, viewportWidth, viewportHeight } as const
 }
