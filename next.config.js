@@ -5,6 +5,11 @@ const nextConfig = {
     config.resolve.alias['mapbox-gl'] = 'maplibre-gl'
     return config
   },
+  turbopack: {
+    resolveAlias: {
+      'mapbox-gl': 'maplibre-gl'
+    }
+  }
 }
 
 module.exports = nextConfig

@@ -1,5 +1,4 @@
 import { useCallback } from 'react'
-import { rsc } from 'react-styled-classnames'
 
 import CategoryColorBg from '@/components/CategoryColorBg'
 import SidebarMenuItem from '@/components/Sidebar/SidebarMenuItem'
@@ -8,13 +7,11 @@ import { CATEGORY_ID } from '@/lib/constants'
 import useMapContext from '@/src/map/useMapContext'
 import useMapStore from '@/zustand/useMapStore'
 
-const StyledSidebar = rsc.div`
-  absolute
-  left-5
-  bottom-5
-  md:w-56
-  z-30
-`
+const StyledSidebar = ({ children, className = '', ...props }: any) => (
+  <div className={`absolute left-5 bottom-5 md:w-56 z-30 ${className}`} {...props}>
+    {children}
+  </div>
+)
 
 const Sidebar = () => {
   const { map } = useMapContext()

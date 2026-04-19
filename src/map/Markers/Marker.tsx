@@ -1,28 +1,14 @@
 import { memo, useCallback } from 'react'
 import { Marker as ReactMapGLMarker } from 'react-map-gl'
-import { rsc } from 'react-styled-classnames'
 
 import IconCircle from '@/components/IconCircle'
 import { Category, Place } from '@/lib/types/entityTypes'
 
-const StyledBadge = rsc.span`
-  flex
-  z-20
-  flex-col
-  absolute
-  -top-2
-  -right-2
-  border-2
-  border-white
-  bg-error
-  text-white
-  rounded-full
-  h-6
-  w-6
-  text-xs
-  items-center
-  pt-0.5
-`
+const StyledBadge = ({ children, className = '' }: any) => (
+  <span className={`flex z-20 flex-col absolute -top-2 -right-2 border-2 border-white bg-error text-white rounded-full h-6 w-6 text-xs items-center pt-0.5 ${className}`}>
+    {children}
+  </span>
+)
 
 interface handleClusterClickProps {
   clusterId: number

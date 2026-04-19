@@ -1,6 +1,5 @@
 import { Settings } from 'lucide-react'
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react'
-import { rsc } from 'react-styled-classnames'
 
 import CategoryColorBg from '@/components/CategoryColorBg'
 import usePlaces from '@/hooks/usePlaces'
@@ -9,22 +8,17 @@ import useMapActions from '@/map/useMapActions'
 import useMapStore from '@/zustand/useMapStore'
 import useSettingsStore from '@/zustand/useSettingsStore'
 
-const StyledSettingsButton = rsc.button`
-  absolute
-  left-5
-  top-5
-  bg-white
-  p-3
-  z-10
-`
+const StyledSettingsButton = ({ children, className = '', ...props }: any) => (
+  <button className={`absolute left-5 top-5 bg-white p-3 z-10 ${className}`} {...props}>
+    {children}
+  </button>
+)
 
-const StyledSettingsBox = rsc.div`
-  absolute
-  left-5
-  top-16
-  w-80
-  p-3
-`
+const StyledSettingsBox = ({ children, className = '', ...props }: any) => (
+  <div className={`absolute left-5 top-16 w-80 p-3 ${className}`} {...props}>
+    {children}
+  </div>
+)
 
 const SettingsBox = () => {
   const selectedCategory = useMapStore(state => state.selectedCategory)
