@@ -1,7 +1,12 @@
-import { FullscreenControl, GeolocateControl, NavigationControl, ScaleControl } from 'react-map-gl'
+import {
+  FullscreenControl,
+  GeolocateControl,
+  NavigationControl,
+  ScaleControl,
+} from 'react-map-gl/maplibre'
 
 import useAppTheme from '@/hooks/useTheme'
-import { AppConfig } from '@/lib/AppConfig'
+import { AppConfig } from '@/shared/constants/AppConfig'
 
 const MapControls = () => {
   const { space } = useAppTheme()

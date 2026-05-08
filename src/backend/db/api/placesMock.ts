@@ -2,7 +2,7 @@
  * This file is a mock for the API call to get the places
  * note: types should be extracted to a entity types file
  */
-import { Place } from '@/lib/types/entityTypes'
+import { Place } from '@/shared/types/entityTypes'
 
 export const apiPlaces: Place[] = [
   {

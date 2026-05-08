@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
-import { MapRef } from 'react-map-gl'
+import { MapRef } from 'react-map-gl/maplibre'
 
-import { AppConfig } from '@/lib/AppConfig'
+import { AppConfig } from '@/shared/constants/AppConfig'
 import useMapContext from '@/src/map/useMapContext'
 import useMapStore from '@/zustand/useMapStore'
 

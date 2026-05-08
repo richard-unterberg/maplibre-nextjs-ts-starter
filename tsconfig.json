@@ -18,12 +18,14 @@
     "baseUrl": ".",
     "paths": {
       "@/pages/*": ["./src/pages/*"],
-      "@/components/*": ["./src/components/*"],
-      "@/map/*": ["src/map/*"],
-      "@/hooks/*": ["./src/lib/hooks/*"],
-      "@/theme/*": ["./src/lib/theme/*"],
-      "@/lib/*": ["./src/lib/*"],
-      "@/api/*": ["src/lib/api/*"],
+      "@/frontend/*": ["./src/frontend/*"],
+      "@/backend/*": ["./src/backend/*"],
+      "@/shared/*": ["./src/shared/*"],
+      "@/map/*": ["./src/map/*"],
+      "@/hooks/*": ["./src/frontend/hooks/*"],
+      "@/theme/*": ["./src/theme/*"],
+      "@/types/*": ["./src/shared/types/*"],
+      "@/constants/*": ["./src/shared/constants/*"],
       "@/zustand/*": ["./src/zustand/*"],
       "@/src/*": ["./src/*"],
       "@/root/*": ["./*"]
@@ -38,7 +40,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
+    ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }

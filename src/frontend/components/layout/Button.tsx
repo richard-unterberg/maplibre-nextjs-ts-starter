@@ -1,6 +1,6 @@
 import { useRouter } from 'next/navigation'
 
-import { AppConfig } from '@/lib/AppConfig'
+import { AppConfig } from '@/shared/constants/AppConfig'
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   small?: boolean

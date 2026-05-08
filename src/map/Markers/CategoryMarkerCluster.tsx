@@ -1,10 +1,10 @@
 import { memo, useCallback, useMemo } from 'react'
-import { MapRef } from 'react-map-gl'
+import { MapRef } from 'react-map-gl/maplibre'
 import useSupercluster from 'use-supercluster'
 
 import useAppTheme from '@/hooks/useTheme'
-import { AppConfig } from '@/lib/AppConfig'
-import { Bound, Category, Place } from '@/lib/types/entityTypes'
+import { AppConfig } from '@/shared/constants/AppConfig'
+import { Bound, Category, Place } from '@/shared/types/entityTypes'
 import Marker from '@/src/map/Markers/Marker'
 import { handleMapMoveProps } from '@/src/map/useMapActions'
 import useMapStore from '@/zustand/useMapStore'

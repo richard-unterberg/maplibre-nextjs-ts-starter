@@ -1,20 +1,13 @@
 import { useCallback } from 'react'
-import { rsc } from 'react-styled-classnames'
 
-import CategoryColorBg from '@/components/CategoryColorBg'
-import SidebarMenuItem from '@/components/Sidebar/SidebarMenuItem'
+import CategoryColorBg from '@/frontend/components/layout/CategoryColorBg'
+import SidebarMenuItem from '@/frontend/components/layout/Sidebar/SidebarMenuItem'
 import useCategories from '@/hooks/useCategories'
-import { CATEGORY_ID } from '@/lib/constants'
+import { CATEGORY_ID } from '@/shared/constants/constants'
 import useMapContext from '@/src/map/useMapContext'
 import useMapStore from '@/zustand/useMapStore'
 
-const StyledSidebar = rsc.div`
-  absolute
-  left-5
-  bottom-5
-  md:w-56
-  z-30
-`
+const sidebarClassName = 'absolute left-5 bottom-5 md:w-56 z-30'
 
 const Sidebar = () => {
   const { map } = useMapContext()
@@ -25,15 +18,12 @@ const Sidebar = () => {
   const setSelectedCategory = useMapStore(state => state.setSelectedCategory)
   const { categories, getCategoryById } = useCategories()
 
-  // todo: split into smaller event handlers
   const handleClick = useCallback(
     (categoryId?: CATEGORY_ID) => {
       if (!map || isAnimating) return
 
-      // reset popups
       setMarkerPopup(undefined)
 
-      // set category
       if (categoryId && selectedCategory?.id !== categoryId) {
         setSelectedCategory(getCategoryById(categoryId))
       } else {
@@ -44,9 +34,9 @@ const Sidebar = () => {
   )
 
   return isMapGlLoaded ? (
-    <StyledSidebar>
+    <div className={sidebarClassName}>
       <CategoryColorBg outerClassName="p-2">
-        <div className="w-full z-10 relative">
+        <div className="relative z-10 w-full">
           {Object.values(categories).map(category => (
             <SidebarMenuItem
               key={category.id}
@@ -57,7 +47,7 @@ const Sidebar = () => {
           ))}
         </div>
       </CategoryColorBg>
-    </StyledSidebar>
+    </div>
   ) : null
 }
 

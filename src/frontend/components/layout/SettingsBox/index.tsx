@@ -1,30 +1,16 @@
 import { Settings } from 'lucide-react'
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react'
-import { rsc } from 'react-styled-classnames'
 
-import CategoryColorBg from '@/components/CategoryColorBg'
+import CategoryColorBg from '@/frontend/components/layout/CategoryColorBg'
 import usePlaces from '@/hooks/usePlaces'
-import { AppConfig } from '@/lib/AppConfig'
 import useMapActions from '@/map/useMapActions'
+import { AppConfig } from '@/shared/constants/AppConfig'
 import useMapStore from '@/zustand/useMapStore'
 import useSettingsStore from '@/zustand/useSettingsStore'
 
-const StyledSettingsButton = rsc.button`
-  absolute
-  left-5
-  top-5
-  bg-white
-  p-3
-  z-10
-`
+const settingsButtonClassName = 'absolute left-5 top-5 bg-white p-3 z-10'
 
-const StyledSettingsBox = rsc.div`
-  absolute
-  left-5
-  top-16
-  w-80
-  p-3
-`
+const settingsBoxClassName = 'absolute left-5 top-16 w-80 p-3'
 
 const SettingsBox = () => {
   const selectedCategory = useMapStore(state => state.selectedCategory)
@@ -80,14 +66,15 @@ const SettingsBox = () => {
 
   return (
     <>
-      <StyledSettingsButton
+      <button
+        className={settingsButtonClassName}
         onClick={() => setIsSettingsOpen(!isSettingsOpen)}
         style={{ marginTop: AppConfig.ui.barHeight }}
       >
         <Settings />
-      </StyledSettingsButton>
+      </button>
       {isSettingsOpen && (
-        <StyledSettingsBox style={{ marginTop: AppConfig.ui.barHeight }}>
+        <div className={settingsBoxClassName} style={{ marginTop: AppConfig.ui.barHeight }}>
           <CategoryColorBg className="z-10" />
           <div className={`z-20 relative ${selectedCategory ? 'text-white' : 'text-dark'}`}>
             <p className="text-lg">
@@ -160,7 +147,7 @@ const SettingsBox = () => {
               </span>
             </label>
           </div>
-        </StyledSettingsBox>
+        </div>
       )}
     </>
   )

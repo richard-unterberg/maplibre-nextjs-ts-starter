@@ -1,7 +1,7 @@
 import { useCallback, useRef } from 'react'
 
-import apiCategories from '@/lib/api/categoriesMock'
-import { CATEGORY_ID } from '@/lib/constants'
+import apiCategories from '@/backend/db/api/categoriesMock'
+import { CATEGORY_ID } from '@/shared/constants/constants'
 
 const useCategories = () => {
   // use api call here

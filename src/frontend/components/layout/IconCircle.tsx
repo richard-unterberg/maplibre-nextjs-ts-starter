@@ -2,8 +2,8 @@ import { LucideProps } from 'lucide-react'
 import Image from 'next/image'
 import { FunctionComponent } from 'react'
 
-import IconFC from '@/components/IconFC'
-import { AppConfig } from '@/lib/AppConfig'
+import IconFC from '@/frontend/components/layout/IconFC'
+import { AppConfig } from '@/shared/constants/AppConfig'
 
 interface IconCircleProps {
   icon?: FunctionComponent<LucideProps>

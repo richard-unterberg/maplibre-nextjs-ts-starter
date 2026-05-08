@@ -1,7 +1,7 @@
-import CategoryColorBg from '@/components/CategoryColorBg'
-import Nav from '@/components/Nav'
-import CategoryDisplay from '@/components/TopBar/CategoryDisplay'
-import { AppConfig, NavVariant } from '@/lib/AppConfig'
+import CategoryColorBg from '@/frontend/components/layout/CategoryColorBg'
+import Nav from '@/frontend/components/layout/Nav'
+import CategoryDisplay from '@/frontend/components/layout/TopBar/CategoryDisplay'
+import { AppConfig, NavVariant } from '@/shared/constants/AppConfig'
 import useMapStore from '@/zustand/useMapStore'
 
 const TopBar = () => {

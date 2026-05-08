@@ -1,8 +1,8 @@
-import { ViewState } from 'react-map-gl'
+import { ViewState } from 'react-map-gl/maplibre'
 import { create } from 'zustand'
 
-import { AppConfig } from '@/lib/AppConfig'
-import { Category } from '@/lib/types/entityTypes'
+import { AppConfig } from '@/shared/constants/AppConfig'
+import { Category } from '@/shared/types/entityTypes'
 
 interface MapStoreValues {
   viewportWidth?: number

@@ -1,6 +1,6 @@
-import Icon from '@/components/Icon'
-import IconCircle from '@/components/IconCircle'
-import { AppConfig } from '@/lib/AppConfig'
+import Icon from '@/frontend/components/layout/Icon'
+import IconCircle from '@/frontend/components/layout/IconCircle'
+import { AppConfig } from '@/shared/constants/AppConfig'
 import { ICON } from '@/theme/iconCollection'
 import useMapStore from '@/zustand/useMapStore'
 

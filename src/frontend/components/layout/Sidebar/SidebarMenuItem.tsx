@@ -1,9 +1,9 @@
-import Button from '@/components/Button'
-import IconCircle from '@/components/IconCircle'
-import { AppConfig } from '@/lib/AppConfig'
-import { CATEGORY_ID } from '@/lib/constants'
-import { Category } from '@/lib/types/entityTypes'
+import Button from '@/frontend/components/layout/Button'
+import IconCircle from '@/frontend/components/layout/IconCircle'
 import { theme } from '@/root/tailwind.config'
+import { AppConfig } from '@/shared/constants/AppConfig'
+import { CATEGORY_ID } from '@/shared/constants/constants'
+import { Category } from '@/shared/types/entityTypes'
 import useMapStore from '@/zustand/useMapStore'
 
 interface SidebarMenuItemProps {

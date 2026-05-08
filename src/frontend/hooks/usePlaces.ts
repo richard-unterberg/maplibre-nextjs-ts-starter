@@ -1,11 +1,11 @@
 import { FitBoundsOptions, fitBounds } from '@math.gl/web-mercator'
 import { useCallback, useMemo, useRef } from 'react'
 
+import { apiPlaces } from '@/backend/db/api/placesMock'
 import useCategories from '@/hooks/useCategories'
 import useDetectScreen from '@/hooks/useDetectScreen'
-import { apiPlaces } from '@/lib/api/placesMock'
-import { CATEGORY_ID } from '@/lib/constants'
-import { Place } from '@/lib/types/entityTypes'
+import { CATEGORY_ID } from '@/shared/constants/constants'
+import { Place } from '@/shared/types/entityTypes'
 import useMapStore from '@/zustand/useMapStore'
 import useSettingsStore from '@/zustand/useSettingsStore'
 

@@ -2,9 +2,9 @@ import { useCallback, useMemo } from 'react'
 
 import useCategories from '@/hooks/useCategories'
 import usePlaces from '@/hooks/usePlaces'
-import { Place } from '@/lib/types/entityTypes'
 import useMapActions from '@/map/useMapActions'
 import useMapContext from '@/map/useMapContext'
+import { Place } from '@/shared/types/entityTypes'
 import CategoryMarkerCluster from '@/src/map/Markers/CategoryMarkerCluster'
 import useMapStore from '@/zustand/useMapStore'
 

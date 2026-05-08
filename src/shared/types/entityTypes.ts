@@ -1,6 +1,6 @@
 import Supercluster, { PointFeature } from 'supercluster'
 
-import { CATEGORY_ID } from '@/lib/constants'
+import { CATEGORY_ID } from '@/shared/constants/constants'
 
 export type Category = {
   id: CATEGORY_ID

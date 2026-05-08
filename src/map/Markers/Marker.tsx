@@ -1,28 +1,11 @@
 import { memo, useCallback } from 'react'
-import { Marker as ReactMapGLMarker } from 'react-map-gl'
-import { rsc } from 'react-styled-classnames'
+import { Marker as ReactMapGLMarker } from 'react-map-gl/maplibre'
 
-import IconCircle from '@/components/IconCircle'
-import { Category, Place } from '@/lib/types/entityTypes'
+import IconCircle from '@/frontend/components/layout/IconCircle'
+import { Category, Place } from '@/shared/types/entityTypes'
 
-const StyledBadge = rsc.span`
-  flex
-  z-20
-  flex-col
-  absolute
-  -top-2
-  -right-2
-  border-2
-  border-white
-  bg-error
-  text-white
-  rounded-full
-  h-6
-  w-6
-  text-xs
-  items-center
-  pt-0.5
-`
+const badgeClassName =
+  'flex z-20 flex-col absolute -top-2 -right-2 border-2 border-white bg-error text-white rounded-full h-6 w-6 text-xs items-center pt-0.5'
 
 interface handleClusterClickProps {
   clusterId: number
@@ -60,6 +43,7 @@ const Marker = memo(
       if (handleMarkerClick && markerId) {
         handleMarkerClick(markerId)
       }
+
       if (handleClusterClick) {
         handleClusterClick({ clusterId, latitude, longitude })
       }
@@ -71,9 +55,10 @@ const Marker = memo(
           {pointCount && (
             <span
               style={{ backgroundColor: category.color }}
-              className="absolute -inset-2 bg-mapBg rounded-full opacity-40"
+              className="absolute -inset-2 rounded-full bg-mapBg opacity-40"
             />
           )}
+
           <div className="relative z-20">
             <IconCircle
               size={markerSize}
@@ -82,7 +67,12 @@ const Marker = memo(
               bgColor={category.color}
             />
           </div>
-          {pointCount && <StyledBadge>{pointCount}</StyledBadge>}
+
+          {pointCount && (
+            <span style={{ backgroundColor: category.color }} className={badgeClassName}>
+              {pointCount}
+            </span>
+          )}
         </div>
       </ReactMapGLMarker>
     )

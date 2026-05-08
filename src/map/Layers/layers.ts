@@ -1,4 +1,4 @@
-import type { LayerProps } from 'react-map-gl'
+import type { LayerProps } from 'react-map-gl/maplibre'
 
 import { theme } from '@/root/tailwind.config'
 

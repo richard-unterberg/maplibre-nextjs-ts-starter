@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.space-bg {
+  background: radial-gradient(circle at center, #020617 0%, #01030a 55%, #000000 100%);
+}
+
+.stars-overlay {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  display: block;
+  border-radius: 9999px;
+  background: white;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+  animation-name: twinkle;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  transform-origin: center;
+}
+
+.star:nth-child(3n) {
+  background: #cfe8ff;
+  box-shadow: 0 0 8px rgba(120, 180, 255, 0.8);
+}
+
+.star:nth-child(5n) {
+  background: #e9d5ff;
+  box-shadow: 0 0 8px rgba(200, 160, 255, 0.75);
+}
+
+.star:nth-child(7n) {
+  background: #f8fafc;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+}
+
+@keyframes twinkle {
+  0% {
+    transform: scale(1);
+    opacity: 0.25;
+  }
+  25% {
+    transform: scale(1.4);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(0.9);
+    opacity: 0.45;
+  }
+  75% {
+    transform: scale(1.25);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+}

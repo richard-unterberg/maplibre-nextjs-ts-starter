@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-import { AppConfig } from '@/lib/AppConfig'
+import { AppConfig } from '@/shared/constants/AppConfig'
 
 interface SettingsStoreValues {
   markersCount: number

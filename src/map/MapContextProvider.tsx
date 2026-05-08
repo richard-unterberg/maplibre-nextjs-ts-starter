@@ -1,5 +1,5 @@
 import { createContext, useState } from 'react'
-import { MapRef } from 'react-map-gl'
+import { MapRef } from 'react-map-gl/maplibre'
 
 interface MapContextValues {
   map: MapRef | undefined

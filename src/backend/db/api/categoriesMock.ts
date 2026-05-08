@@ -1,5 +1,5 @@
-import { CATEGORY_ID } from '@/lib/constants'
-import { Category } from '@/lib/types/entityTypes'
+import { CATEGORY_ID } from '@/shared/constants/constants'
+import { Category } from '@/shared/types/entityTypes'
 
 const apiCategories: Category[] = [
   {

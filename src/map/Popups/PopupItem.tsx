@@ -1,11 +1,11 @@
 import { Minimize2, X } from 'lucide-react'
-import { Popup } from 'react-map-gl'
+import { Popup } from 'react-map-gl/maplibre'
 
-import Button from '@/components/Button'
-import IconCircle from '@/components/IconCircle'
+import Button from '@/frontend/components/layout/Button'
+import IconCircle from '@/frontend/components/layout/IconCircle'
 import useCategories from '@/hooks/useCategories'
-import { AppConfig } from '@/lib/AppConfig'
-import { Place } from '@/lib/types/entityTypes'
+import { AppConfig } from '@/shared/constants/AppConfig'
+import { Place } from '@/shared/types/entityTypes'
 import useMapStore from '@/zustand/useMapStore'
 import useSettingsStore from '@/zustand/useSettingsStore'
 

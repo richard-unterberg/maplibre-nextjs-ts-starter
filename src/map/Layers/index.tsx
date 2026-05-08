@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useMemo } from 'react'
-import { GeoJSONSource, Layer, Source } from 'react-map-gl'
+import { Layer, Source } from 'react-map-gl/maplibre'
 
 import useCategories from '@/hooks/useCategories'
 import usePlaces from '@/hooks/usePlaces'
-import { CATEGORY_ID } from '@/lib/constants'
 import {
   clusterBelowLayer,
   clusterCountBadgeLayer,
@@ -14,6 +13,7 @@ import {
 } from '@/map/Layers/layers'
 import useMapActions from '@/map/useMapActions'
 import useMapContext from '@/map/useMapContext'
+import { CATEGORY_ID } from '@/shared/constants/constants'
 import useMapStore from '@/zustand/useMapStore'
 import useSettingsStore from '@/zustand/useSettingsStore'
 
@@ -28,9 +28,7 @@ const Layers = () => {
 
   const categoryCluster = useMemo(
     () =>
-      Object.entries(placesGroupedByCategory).map(catGroup => {
-        const [category, places] = catGroup
-
+      Object.entries(placesGroupedByCategory).map(([category, places]) => {
         const features: GeoJSON.Feature<GeoJSON.Point>[] = places.map(place => ({
           type: 'Feature',
           properties: {
@@ -73,23 +71,25 @@ const Layers = () => {
   )
 
   const onClick = useCallback(
-    (event: mapboxgl.MapMouseEvent & mapboxgl.EventData, category: CATEGORY_ID) => {
+    (event: any, category: CATEGORY_ID) => {
       if (!map || !placesGroupedByCategory) return
-      event.preventDefault()
+
+      event.preventDefault?.()
 
       const clusters = map.queryRenderedFeatures(event.point, {
         layers: [`cluster-${category}`],
       })
+
       const markers = map.queryRenderedFeatures(event.point, {
         layers: [`marker-${category}`],
       })
 
-      const mapboxSource = map.getSource(`source-${category}`) as GeoJSONSource
+      const mapSource = map.getSource(`source-${category}`) as any
 
       if (clusters.length) {
         const clusterId = clusters[0]?.properties?.cluster_id
-        mapboxSource.getClusterExpansionZoom(clusterId, (_err, zoom) => {
-          // be save & return if zoom is undefined
+
+        mapSource?.getClusterExpansionZoom?.(clusterId, (_err: unknown, zoom: number) => {
           if (!zoom) return
 
           handleMapMove({
@@ -98,11 +98,13 @@ const Layers = () => {
             zoom: zoom + 0.5,
           })
         })
+
         return
       }
 
       const markerId = markers[0]?.properties?.id
       const place = getPlaceById(markerId)
+
       if (!place) return
 
       setMarkerPopup(place.id)
@@ -118,38 +120,56 @@ const Layers = () => {
         },
       })
     },
-    [getPlaceById, handleMapMove, map, setMarkerPopup, placesGroupedByCategory],
+    [getPlaceById, handleMapMove, map, placesGroupedByCategory, setMarkerPopup],
   )
 
   useEffect(() => {
-    map &&
-      markerCategoryIDs?.forEach(category => {
-        map.on('click', `cluster-${category}`, e => onClick(e, category))
-        map.on('click', `marker-${category}`, e => onClick(e, category))
+    if (!map) return
 
-        const catImage = getCategoryById(category)?.iconMedium || ''
+    const handlers: {
+      category: CATEGORY_ID
+      clusterHandler: (e: any) => void
+      markerHandler: (e: any) => void
+    }[] = []
 
-        map?.loadImage(`${catImage}`, (error, image) => {
-          if (!map.hasImage(`category-thumb-${category}`)) {
-            if (!image || error) return
-            map.addImage(`category-thumb-${category}`, image)
-          }
-        })
-      })
+    markerCategoryIDs?.forEach(category => {
+      const clusterHandler = (e: any) => onClick(e, category)
+      const markerHandler = (e: any) => onClick(e, category)
+
+      handlers.push({ category, clusterHandler, markerHandler })
+
+      map.on('click', `cluster-${category}`, clusterHandler)
+      map.on('click', `marker-${category}`, markerHandler)
+
+      const catImage = getCategoryById(category)?.iconMedium || ''
+
+      if (catImage) {
+        map
+          .loadImage(catImage)
+          .then(image => {
+            if (!map.hasImage(`category-thumb-${category}`)) {
+              map.addImage(`category-thumb-${category}`, image.data)
+            }
+          })
+          .catch(() => {
+            // ignore missing image
+          })
+      }
+    })
 
     return () => {
-      map &&
-        markerCategoryIDs?.forEach(category => {
-          map.off('click', `cluster-${category}`, e => onClick(e, category))
-          map.off('click', `marker-${category}`, e => onClick(e, category))
-          if (map.hasImage(`category-thumb-${category}`)) {
-            map.removeImage(`category-thumb-${category}`)
-          }
-        })
+      handlers.forEach(({ category, clusterHandler, markerHandler }) => {
+        map.off('click', `cluster-${category}`, clusterHandler)
+        map.off('click', `marker-${category}`, markerHandler)
+
+        if (map.hasImage(`category-thumb-${category}`)) {
+          map.removeImage(`category-thumb-${category}`)
+        }
+      })
     }
   }, [getCategoryById, map, markerCategoryIDs, onClick])
 
-  return categoryCluster
+  return <>{categoryCluster}</>
 }
 
 export default Layers
