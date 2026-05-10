@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@math.gl/web-mercator": "^3.6.3",
+    "firebase": "^12.13.0",
     "lodash": "^4.17.21",
     "lucide-react": "^0.259.0",
     "maplibre-gl": "^5.24.0",

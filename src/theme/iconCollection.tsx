@@ -8,11 +8,13 @@ import dynamic from 'next/dynamic'
 
 const Github = dynamic(() => import('lucide-react').then(module => module.Github))
 const Compass = dynamic(() => import('lucide-react').then(module => module.Compass))
+const User = dynamic(() => import('lucide-react').then(module => module.User))
 
 export enum ICON {
   NONE,
   GITHUB,
   COMPASS,
+  USER,
 }
 
 type ICON_TYPE = {
@@ -26,4 +28,5 @@ export const APP_ICON: ICON_TYPE = {
   [ICON.NONE]: { component: null },
   [ICON.GITHUB]: { component: Github },
   [ICON.COMPASS]: { component: Compass },
+  [ICON.USER]: { component: User },
 }
