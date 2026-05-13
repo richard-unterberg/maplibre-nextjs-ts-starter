@@ -1,5 +1,5 @@
 import { FitBoundsOptions, fitBounds } from '@math.gl/web-mercator'
-import { useCallback, useMemo, useRef } from 'react'
+import { useCallback, useMemo } from 'react'
 
 import useCategories from '@/hooks/useCategories'
 import useDetectScreen from '@/hooks/useDetectScreen'
@@ -24,7 +24,7 @@ const usePlaces = () => {
   const { categories } = useCategories()
 
   // use api call here
-  const { current: rawPlaces } = useRef(apiPlaces)
+  const rawPlaces = apiPlaces
 
   /** returns places by id input */
   const getCatPlaces = useCallback(
@@ -36,10 +36,10 @@ const usePlaces = () => {
   const markerData = useMemo(
     () =>
       limitPlacesLength(
-        !selectedCategory ? apiPlaces : getCatPlaces(selectedCategory.id),
+        !selectedCategory ? rawPlaces : getCatPlaces(selectedCategory.id),
         markersCount,
       ),
-    [getCatPlaces, markersCount, selectedCategory],
+    [getCatPlaces, markersCount, rawPlaces, selectedCategory],
   )
 
   /** get unique category ids for all markers */

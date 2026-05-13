@@ -1,8 +1,8 @@
 import { throttle } from 'lodash'
 import dynamic from 'next/dynamic'
 import { useCallback, useEffect, useMemo } from 'react'
-import type { ErrorEvent, ViewState, ViewStateChangeEvent } from 'react-map-gl'
-import Map from 'react-map-gl'
+import type { ErrorEvent, ViewState, ViewStateChangeEvent } from 'react-map-gl/maplibre'
+import Map from 'react-map-gl/maplibre'
 
 import useDetectScreen from '@/hooks/useDetectScreen'
 import usePlaces from '@/hooks/usePlaces'

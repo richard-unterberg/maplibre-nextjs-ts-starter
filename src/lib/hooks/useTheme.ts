@@ -3,8 +3,10 @@ import { spacing } from 'tailwindcss/defaultTheme'
 
 import { theme } from '@/root/tailwind.config'
 
+type ThemeColor = keyof typeof theme.colors
+
 const useAppTheme = () => {
-  const color = useCallback((key: string) => theme.colors[key], [])
+  const color = useCallback((key: ThemeColor) => theme.colors[key], [])
 
   const space = useCallback((t: number) => {
     const number = `${t}` as keyof typeof spacing

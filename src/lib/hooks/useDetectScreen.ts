@@ -14,11 +14,11 @@ const useDetectScreen = () => {
 
     let timeoutId: NodeJS.Timeout
 
-    const observer = new ResizeObserver((entries) => {
+    const observer = new ResizeObserver(entries => {
       // Debounce the resize event
       clearTimeout(timeoutId)
       timeoutId = setTimeout(() => {
-        for (let entry of entries) {
+        for (const entry of entries) {
           const { width, height } = entry.contentRect
           if (width) setViewportWidth(width)
           if (height) setViewportHeight(height)

@@ -1,5 +1,5 @@
 import { memo, useCallback, useMemo } from 'react'
-import { MapRef } from 'react-map-gl'
+import { MapRef } from 'react-map-gl/maplibre'
 import useSupercluster from 'use-supercluster'
 
 import useAppTheme from '@/hooks/useTheme'

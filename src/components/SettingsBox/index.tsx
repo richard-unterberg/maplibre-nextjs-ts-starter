@@ -1,5 +1,6 @@
 import { Settings } from 'lucide-react'
-import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react'
+import { type ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react'
+import type { ButtonHTMLAttributes, HTMLAttributes, PropsWithChildren } from 'react'
 
 import CategoryColorBg from '@/components/CategoryColorBg'
 import usePlaces from '@/hooks/usePlaces'
@@ -8,13 +9,20 @@ import useMapActions from '@/map/useMapActions'
 import useMapStore from '@/zustand/useMapStore'
 import useSettingsStore from '@/zustand/useSettingsStore'
 
-const StyledSettingsButton = ({ children, className = '', ...props }: any) => (
+type StyledSettingsButtonProps = PropsWithChildren<ButtonHTMLAttributes<HTMLButtonElement>>
+type StyledSettingsBoxProps = PropsWithChildren<HTMLAttributes<HTMLDivElement>>
+
+const StyledSettingsButton = ({
+  children,
+  className = '',
+  ...props
+}: StyledSettingsButtonProps) => (
   <button className={`absolute left-5 top-5 bg-white p-3 z-10 ${className}`} {...props}>
     {children}
   </button>
 )
 
-const StyledSettingsBox = ({ children, className = '', ...props }: any) => (
+const StyledSettingsBox = ({ children, className = '', ...props }: StyledSettingsBoxProps) => (
   <div className={`absolute left-5 top-16 w-80 p-3 ${className}`} {...props}>
     {children}
   </div>
@@ -91,7 +99,7 @@ const SettingsBox = () => {
             <input
               type="range"
               min={5}
-              onChange={e => setMarkersCount(parseFloat(e.target.value))}
+              onChange={e => setMarkersCount(Number.parseFloat(e.target.value))}
               max={currentMaxCounting}
               value={markersCount}
               step={1}
@@ -106,7 +114,7 @@ const SettingsBox = () => {
               min={AppConfig.ui.mapIconSizeSmall}
               onChange={e => {
                 // todo: outsource this to own handler
-                const newMarkerSize = parseFloat(e.target.value)
+                const newMarkerSize = Number.parseFloat(e.target.value)
                 setMarkerSize(newMarkerSize)
 
                 // Set clusterRadius to the new marker size only if it's smaller than the current clusterRadius
@@ -127,7 +135,7 @@ const SettingsBox = () => {
               type="range"
               min={markerSize}
               onChange={e => {
-                setClusterRadius(parseFloat(e.target.value))
+                setClusterRadius(Number.parseFloat(e.target.value))
               }}
               max={200}
               value={clusterRadius}
@@ -148,9 +156,9 @@ const SettingsBox = () => {
                 onChange={e => handleLegacyJSXRendering(e)}
               />
               <span>
-                <b>Enable.</b> - Experimental - If enabled, markers and clusters are rendered in
-                react. Performance may vary depending on your device. If you experience performance
-                issues, higher cluster radius and lower marker count.
+                <b>Enable DOM Marker:</b> - Experimental - markers and clusters are rendered as DOM
+                elements. Performance may vary depending on your device. If you experience
+                performance issues, higher cluster radius and lower marker count.
               </span>
             </label>
           </div>

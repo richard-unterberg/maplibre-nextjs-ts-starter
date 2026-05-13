@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useMemo } from 'react'
-import { GeoJSONSource, Layer, Source } from 'react-map-gl'
+import type { GeoJSONSource, MapLayerMouseEvent, MapMouseEvent } from 'maplibre-gl'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { Layer, Source } from 'react-map-gl/maplibre'
 
 import useCategories from '@/hooks/useCategories'
 import usePlaces from '@/hooks/usePlaces'
@@ -25,6 +26,7 @@ const Layers = () => {
   const setMarkerPopup = useMapStore(state => state.setMarkerPopup)
   const { map } = useMapContext()
   const { handleMapMove } = useMapActions()
+  const [loadedCategoryImages, setLoadedCategoryImages] = useState<Record<string, true>>({})
 
   const categoryCluster = useMemo(
     () =>
@@ -49,6 +51,7 @@ const Layers = () => {
         }
 
         const catColor = getCategoryById(parseFloat(category))?.color || 'red'
+        const imageId = `category-thumb-${category}`
 
         return (
           <Source
@@ -63,17 +66,17 @@ const Layers = () => {
             <Layer {...markerLayer(category, markerSize, catColor)} />
             <Layer {...clusterBelowLayer(category, markerSize, catColor)} />
             <Layer {...clusterLayer(category, markerSize, catColor)} />
-            <Layer {...iconLayer(category, markerSize)} />
+            {loadedCategoryImages[imageId] && <Layer {...iconLayer(category, markerSize)} />}
             <Layer {...clusterCountBadgeLayer(category, markerSize)} />
             <Layer {...clusterCountLayer(category)} />
           </Source>
         )
       }),
-    [clusterRadius, getCategoryById, markerSize, placesGroupedByCategory],
+    [clusterRadius, getCategoryById, loadedCategoryImages, markerSize, placesGroupedByCategory],
   )
 
   const onClick = useCallback(
-    (event: mapboxgl.MapMouseEvent & mapboxgl.EventData, category: CATEGORY_ID) => {
+    async (event: MapMouseEvent, category: CATEGORY_ID) => {
       if (!map || !placesGroupedByCategory) return
       event.preventDefault()
 
@@ -87,16 +90,17 @@ const Layers = () => {
       const mapboxSource = map.getSource(`source-${category}`) as GeoJSONSource
 
       if (clusters.length) {
-        const clusterId = clusters[0]?.properties?.cluster_id
-        mapboxSource.getClusterExpansionZoom(clusterId, (_err, zoom) => {
-          // be save & return if zoom is undefined
-          if (!zoom) return
+        const clusterId = clusters[0]?.properties?.cluster_id as number | undefined
+        if (clusterId === undefined) return
 
-          handleMapMove({
-            latitude: event.lngLat.lat,
-            longitude: event.lngLat.lng,
-            zoom: zoom + 0.5,
-          })
+        const zoom = await mapboxSource.getClusterExpansionZoom(clusterId)
+        // be save & return if zoom is undefined
+        if (!zoom) return
+
+        handleMapMove({
+          latitude: event.lngLat.lat,
+          longitude: event.lngLat.lng,
+          zoom: zoom + 0.5,
         })
         return
       }
@@ -122,30 +126,55 @@ const Layers = () => {
   )
 
   useEffect(() => {
-    map &&
-      markerCategoryIDs?.forEach(category => {
-        map.on('click', `cluster-${category}`, e => onClick(e, category))
-        map.on('click', `marker-${category}`, e => onClick(e, category))
+    if (!map || !markerCategoryIDs) return undefined
 
-        const catImage = getCategoryById(category)?.iconMedium || ''
+    let isMounted = true
+    const clickHandlers: {
+      category: CATEGORY_ID
+      cluster: (event: MapLayerMouseEvent) => void
+      marker: (event: MapLayerMouseEvent) => void
+    }[] = []
 
-        map?.loadImage(`${catImage}`, (error, image) => {
-          if (!map.hasImage(`category-thumb-${category}`)) {
-            if (!image || error) return
-            map.addImage(`category-thumb-${category}`, image)
-          }
-        })
+    markerCategoryIDs.forEach(category => {
+      const clusterClick = (event: MapLayerMouseEvent) => {
+        void onClick(event, category)
+      }
+      const markerClick = (event: MapLayerMouseEvent) => {
+        void onClick(event, category)
+      }
+
+      clickHandlers.push({ category, cluster: clusterClick, marker: markerClick })
+      map.on('click', `cluster-${category}`, clusterClick)
+      map.on('click', `marker-${category}`, markerClick)
+
+      const catImage = getCategoryById(category)?.iconMedium
+      const imageId = `category-thumb-${category}`
+      if (!catImage) return
+
+      if (map.hasImage(imageId)) {
+        setLoadedCategoryImages(prev => ({ ...prev, [imageId]: true }))
+        return
+      }
+
+      void map.loadImage(`/${catImage}`).then(image => {
+        if (!isMounted || map.hasImage(imageId)) return
+        map.addImage(imageId, image.data)
+        setLoadedCategoryImages(prev => ({ ...prev, [imageId]: true }))
       })
+    })
 
     return () => {
-      map &&
-        markerCategoryIDs?.forEach(category => {
-          map.off('click', `cluster-${category}`, e => onClick(e, category))
-          map.off('click', `marker-${category}`, e => onClick(e, category))
-          if (map.hasImage(`category-thumb-${category}`)) {
-            map.removeImage(`category-thumb-${category}`)
-          }
-        })
+      isMounted = false
+
+      clickHandlers.forEach(({ category, cluster, marker }) => {
+        map.off('click', `cluster-${category}`, cluster)
+        map.off('click', `marker-${category}`, marker)
+        if (map.hasImage(`category-thumb-${category}`)) {
+          map.removeImage(`category-thumb-${category}`)
+        }
+      })
+
+      setLoadedCategoryImages({})
     }
   }, [getCategoryById, map, markerCategoryIDs, onClick])
 
