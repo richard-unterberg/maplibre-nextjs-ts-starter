@@ -24,7 +24,6 @@ more infos very soon...
   - [Maplibre GL JS](https://github.com/maplibre/maplibre-gl-js)
   - [react-map-gl](https://github.com/visgl/react-map-gl)
 - Development
-  - [react-styled-classnames](https://github.com/richard-unterberg/react-styled-classnames)
   - [typeScript](https://github.com/microsoft/TypeScript)
   - [eslint](https://github.com/eslint/eslint)
   - [prettier](https://github.com/prettier/prettier)
