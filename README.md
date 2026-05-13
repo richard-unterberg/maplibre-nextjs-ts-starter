@@ -19,7 +19,6 @@ more infos very soon...
 - UI:
   - [tailwind](https://github.com/tailwindlabs/tailwindcss)
   - [Lucide Icons](https://github.com/lucide-icons/lucide)
-  - [react-resize-detector](https://github.com/maslianok/react-resize-detector) (almost deprecated)
 - Map:
   - [Maplibre GL JS](https://github.com/maplibre/maplibre-gl-js)
   - [react-map-gl](https://github.com/visgl/react-map-gl)
