@@ -32,7 +32,7 @@ export const clusterCountLayer = (categoryId: string): LayerProps => ({
   filter: ['has', 'point_count'],
   layout: {
     'text-field': '{point_count_abbreviated}',
-    'text-font': ['Catamaran Bold', 'Arial Unicode MS Bold'],
+    'text-font': ['Helvetica Neue Bold', 'Arial Unicode MS Bold'],
     'text-size': 10,
     'text-allow-overlap': true,
   },

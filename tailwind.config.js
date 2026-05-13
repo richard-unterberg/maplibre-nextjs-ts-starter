@@ -1,6 +1,4 @@
 const colors = require('tailwindcss/colors')
-const { fontFamily } = require('tailwindcss/defaultTheme')
-
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   daisyui: {
@@ -27,7 +25,7 @@ module.exports = {
         small: ['16px', '20px'],
       },
       fontFamily: {
-        sans: ['var(--font-catamaran, ui-sans-serif)', ...fontFamily.sans],
+        sans: ['Helvetica Neue', 'Arial', 'sans-serif'],
       },
     },
   },
