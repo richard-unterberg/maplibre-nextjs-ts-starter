@@ -1,4 +1,4 @@
-import type { LayerProps } from 'react-map-gl'
+import type { LayerProps } from 'react-map-gl/maplibre'
 
 import { theme } from '@/root/tailwind.config'
 
@@ -32,7 +32,7 @@ export const clusterCountLayer = (categoryId: string): LayerProps => ({
   filter: ['has', 'point_count'],
   layout: {
     'text-field': '{point_count_abbreviated}',
-    'text-font': ['Catamaran Bold', 'Arial Unicode MS Bold'],
+    'text-font': ['Helvetica Neue Bold', 'Arial Unicode MS Bold'],
     'text-size': 10,
     'text-allow-overlap': true,
   },
@@ -72,6 +72,7 @@ export const iconLayer = (category: string, size: number): LayerProps => ({
   id: `icon-layer-${category}`,
   type: 'symbol',
   source: `source-${category}`, // Make sure to replace this with your source id
+  filter: ['!', ['has', 'point_count']],
   layout: {
     'text-allow-overlap': true,
     'icon-image': `category-thumb-${category}`, // Use the name you specified when loading the icon

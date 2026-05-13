@@ -1,4 +1,4 @@
-import { ViewState } from 'react-map-gl'
+import { ViewState } from 'react-map-gl/maplibre'
 import { create } from 'zustand'
 
 import { AppConfig } from '@/lib/AppConfig'

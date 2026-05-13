@@ -1,5 +1,5 @@
 import { Minimize2, X } from 'lucide-react'
-import { Popup } from 'react-map-gl'
+import { Popup } from 'react-map-gl/maplibre'
 
 import Button from '@/components/Button'
 import IconCircle from '@/components/IconCircle'

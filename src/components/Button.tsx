@@ -1,8 +1,9 @@
 import { useRouter } from 'next/navigation'
+import type { ButtonHTMLAttributes, MouseEvent, ReactElement } from 'react'
 
 import { AppConfig } from '@/lib/AppConfig'
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   small?: boolean
   border?: boolean
   link?: string
@@ -10,10 +11,10 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   noBorderRadius?: boolean
 }
 
-const WithLink = ({ link, children }: { link: ButtonProps['link']; children: JSX.Element }) => {
+const WithLink = ({ link, children }: { link: ButtonProps['link']; children: ReactElement }) => {
   const router = useRouter()
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+  const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
     if (!link) return
 

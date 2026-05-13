@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -12,21 +16,41 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "@/pages/*": ["./src/pages/*"],
-      "@/components/*": ["./src/components/*"],
-      "@/map/*": ["src/map/*"],
-      "@/hooks/*": ["./src/lib/hooks/*"],
-      "@/theme/*": ["./src/lib/theme/*"],
-      "@/lib/*": ["./src/lib/*"],
-      "@/api/*": ["src/lib/api/*"],
-      "@/zustand/*": ["./src/zustand/*"],
-      "@/src/*": ["./src/*"],
-      "@/root/*": ["./*"]
+      "@/pages/*": [
+        "./src/pages/*"
+      ],
+      "@/components/*": [
+        "./src/components/*"
+      ],
+      "@/map/*": [
+        "src/map/*"
+      ],
+      "@/hooks/*": [
+        "./src/lib/hooks/*"
+      ],
+      "@/theme/*": [
+        "./src/lib/theme/*"
+      ],
+      "@/lib/*": [
+        "./src/lib/*"
+      ],
+      "@/api/*": [
+        "src/lib/api/*"
+      ],
+      "@/zustand/*": [
+        "./src/zustand/*"
+      ],
+      "@/src/*": [
+        "./src/*"
+      ],
+      "@/root/*": [
+        "./*"
+      ]
     },
     "plugins": [
       {
@@ -38,7 +62,9 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
+    ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

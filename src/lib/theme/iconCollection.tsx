@@ -6,7 +6,7 @@
 import { LucideProps } from 'lucide-react'
 import dynamic from 'next/dynamic'
 
-const Github = dynamic(() => import('lucide-react').then(module => module.Github))
+const Github = dynamic(() => import('lucide-react').then(module => module.GitFork))
 const Compass = dynamic(() => import('lucide-react').then(module => module.Compass))
 
 export enum ICON {
