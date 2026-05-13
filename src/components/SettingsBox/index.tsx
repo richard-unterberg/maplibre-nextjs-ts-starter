@@ -144,7 +144,7 @@ const SettingsBox = () => {
             />
             <p className="text-lg">
               <span className="font-bold">
-                Marker Renderering: {markerJSXRendering ? 'JSX ⚠️' : 'Web GL'}
+                Marker Rendering: {markerJSXRendering ? 'JSX ⚠️' : 'Web GL'}
               </span>
             </p>
             <label className="flex gap-3 items-start" htmlFor="markerJSXRendering">
@@ -158,7 +158,7 @@ const SettingsBox = () => {
               <span>
                 <b>Enable DOM Marker:</b> - Experimental - markers and clusters are rendered as DOM
                 elements. Performance may vary depending on your device. If you experience
-                performance issues, higher cluster radius and lower marker count.
+                performance issues, try a higher cluster radius and lower marker count.
               </span>
             </label>
           </div>
